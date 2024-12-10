@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Calendar } from "lucide-react";
 
 const blogPosts = [
   {
@@ -7,6 +12,7 @@ const blogPosts = [
     excerpt:
       "Learn the best practices for building large-scale React applications that are maintainable and performant.",
     slug: "building-scalable-react-applications",
+    tags: ["React", "Architecture", "Performance"],
   },
   {
     title: "Optimizing NextJS Performance",
@@ -14,49 +20,99 @@ const blogPosts = [
     excerpt:
       "Discover techniques to boost your NextJS application's performance and improve user experience.",
     slug: "optimizing-nextjs-performance",
+    tags: ["NextJS", "Performance", "Optimization"],
+  },
+  {
+    title: "Advanced TypeScript Techniques",
+    date: "2024-01-30",
+    excerpt:
+      "Explore advanced TypeScript features and patterns to write more robust and type-safe code.",
+    slug: "advanced-typescript-techniques",
+    tags: ["TypeScript", "Development", "Best Practices"],
+  },
+  {
+    title: "Mastering CSS Grid Layout",
+    date: "2024-01-15",
+    excerpt:
+      "Deep dive into CSS Grid Layout and learn how to create complex, responsive layouts with ease.",
+    slug: "mastering-css-grid-layout",
+    tags: ["CSS", "Layout", "Responsive Design"],
   },
 ];
 
 export default function Blog() {
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-12 font-mono text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-center animate-fade-in">
-          Latest Blog Posts
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {blogPosts.map((post, index) => (
-            <div
+    <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+            Latest Insights
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Exploring the latest in web development, architecture, and best
+            practices
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {blogPosts.slice(0, 2).map((post, index) => (
+            <Card
               key={index}
-              className="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 animate-fade-in"
-              style={{ animationDelay: `${index * 200}ms` }}
+              className="bg-gray-800 border-gray-700 hover:border-cyan-400/50 transition-all duration-300 group"
             >
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
-                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                </h3>
-                <p className="text-gray-400 text-sm mb-4">{post.date}</p>
-                <p className="text-gray-300 mb-4">{post.excerpt}</p>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 inline-flex items-center"
-                >
-                  Read more
-                  <svg
-                    className="w-4 h-4 ml-2"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 text-gray-400 mb-4">
+                  <Calendar size={16} />
+                  <time dateTime={post.date}>{post.date}</time>
+                </div>
+
+                <Link href={`/blog/${post.slug}`} className="block group">
+                  <CardTitle className="text-xl mb-3 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300">
+                    {post.title}
+                  </CardTitle>
                 </Link>
-              </div>
-            </div>
+
+                <p className="text-gray-300 mb-4 line-clamp-2">
+                  {post.excerpt}
+                </p>
+
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag, i) => (
+                      <Badge
+                        key={i}
+                        variant="secondary"
+                        className="bg-gray-700 text-cyan-400 hover:bg-gray-600"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors duration-300 group/link"
+                  >
+                    Read article
+                    <ArrowRight
+                      size={16}
+                      className="ml-2 transform group-hover/link:translate-x-1 transition-transform duration-300"
+                    />
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link
+            href="/blog"
+            className="inline-flex items-center px-6 py-3 rounded-lg bg-cyan-400 text-gray-900 hover:bg-cyan-300 transition-colors duration-300"
+          >
+            View all posts
+            <ArrowRight size={16} className="ml-2" />
+          </Link>
         </div>
       </div>
     </section>
