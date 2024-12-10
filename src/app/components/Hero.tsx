@@ -1,4 +1,4 @@
-import { Terminal, Github, Linkedin, Twitter } from "lucide-react";
+import { Terminal, Github, Linkedin, Twitter, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
@@ -69,6 +69,13 @@ export default function Hero() {
               aria-label="Twitter"
             >
               <Twitter className="w-8 h-8 text-gray-400 hover:text-cyan-400 transition-colors duration-300" />
+            </a>
+            <a
+              href="mailto:muzaffar640@gmail.com"
+              className="hover-lift"
+              aria-label="Email"
+            >
+              <Mail className="w-8 h-8 text-gray-400 hover:text-cyan-400 transition-colors duration-300" />
             </a>
           </div>
         </div>
