@@ -36,7 +36,7 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6 animate-fade-in animation-delay-600">
           <Link
-            href="/resume.pdf"
+            href="/Muzaffar.pdf"
             download
             className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg inline-block mb-4 sm:mb-0"
           >
