@@ -1,0 +1,156 @@
+---
+title: "TypeScript and ReactMarkdown: A Tale of Types, Tears, and Triumph"
+date: "2024-12-04"
+excerpt: "Learn the best practices for building large-scale React applications that are maintainable and performant."
+coverImage: "/blog/images/typescript-and-reactmarkdown.png"
+tags: ["Markdown", "Typescript", "AI", "WebDev"]
+---
+
+# TypeScript and ReactMarkdown: A Tale of Types, Tears, and Triumph
+
+_Quick disclaimer: What you're about to read covers only about 20% of the type errors I encountered. Initially, I hadn't planned to write this blog post - I was just trying to get my markdown renderer working. But after the fifth cup of coffee and the twentieth type error, I thought, "Someone else needs to benefit from this suffering." So here we are._
+
+_Good news: At the end of this post, I'm sharing four production-ready template files that you can use as a starting point for your own implementation. These templates have saved my team countless hours, and hopefully, they'll do the same for you._
+
+## Why This Implementation Matters: The AI Landscape Context
+
+Let me provide some context about why this implementation became crucial for our team. We're building [Transilience AI](https://www.transilience.ai/), an AI applications in cybersecurity solutions, which means handling streaming responses is a fundamental requirement. Our architecture involves custom agents and modal streaming endpoints that stream responses, necessitating a frontend application capable of handling and styling each HTML component according to our specific needs.
+
+Here's what makes this particularly challenging: the AI landscape is evolving at a breakneck pace. What worked yesterday might need refactoring tomorrow, and documentation often struggles to keep up with this rapid evolution. While building our streaming interface, I found myself navigating through outdated docs and contradicting solutions.
+
+I want to be transparent here - this blog post represents our current, working solution. Given the pace of change in AI development, some aspects might need adaptation in a few months. However, the core concepts and type-safety patterns we've discovered should remain valuable, even as the ecosystem evolves.
+
+The solutions presented here were born from real-world requirements:
+
+- Handling streaming markdown responses from AI models
+- Ensuring type safety across our entire application
+- Creating maintainable, customizable components that could evolve with our needs
+- Building a foundation that could scale as our AI applications grew more complex
+
+## The Beginning: Understanding the Type System Maze
+
+When I first started implementing ReactMarkdown with TypeScript, I thought I had a solid grasp of both technologies. The [ReactMarkdown documentation](https://github.com/remarkjs/react-markdown) made it look straightforward:
+
+```typescript
+<ReactMarkdown
+  components={{
+    code: ({ node, ...props }) => <SomeComponent {...props} />,
+  }}
+/>
+```
+
+But TypeScript had other plans. The moment I tried this "simple" approach, I was greeted with the cryptic error: "Property 'inline' does not exist on type '{}'". And thus began my journey through the type system maze.
+
+### The Evolution of Solutions
+
+Let me walk you through the progression of attempts that led to our final solution. Each one taught me something valuable about TypeScript's type system.
+
+First, I started with what seemed logical - using React's built-in type definitions:
+
+```typescript
+type CodeProps = React.ComponentProps<"code">;
+const CodeComponent = ({ inline, className, children }: CodeProps) => {
+  // Implementation that was doomed from the start
+};
+```
+
+This approach failed because React's native types don't include ReactMarkdown-specific properties. A rookie mistake, but one that taught me to look deeper into library-specific type definitions.
+
+Next, I tried using ReactMarkdownOptions:
+
+```typescript
+import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
+const CodeComponent: ReactMarkdownOptions["components"]["code"] = ({
+  inline,
+  className,
+  children,
+}) => {
+  // Getting closer, but still not quite there
+};
+```
+
+Finally, after much research and experimentation, I found the solution that worked:
+
+```typescript
+import { Components } from "react-markdown/lib/ast-to-react";
+
+const CodeComponent: Components["code"] = ({
+  className,
+  children,
+  ...props
+}) => {
+  const match = /language-(\w+)/.exec(className || "");
+  const lang = match && match[1];
+  return <CodeBlock lang={lang || "text"} codeChildren={String(children)} />;
+};
+```
+
+## The Display Name and Circular Reference Challenges
+
+Just when I thought I had everything under control, ESLint started complaining about missing display names. Here's how we solved it while maintaining type safety:
+
+```typescript
+export const components: Partial<Components> = {
+  code: Object.assign(CodeComponent, { displayName: "CodeComponent" }),
+  // ... other components
+};
+```
+
+The circular reference crisis we encountered led to this type-safe solution:
+
+```typescript
+const extractTextContent = (node: React.ReactNode): string => {
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractTextContent).join("");
+  if (React.isValidElement(node)) {
+    return extractTextContent(node.props.children);
+  }
+  return "";
+};
+```
+
+## Best Practices We Learned the Hard Way
+
+Through this journey, we discovered several crucial best practices:
+
+- Always use the Components type from `react-markdown/lib/ast-to-react` for custom components - it provides the most complete type definitions for all ReactMarkdown component properties.
+
+- Be extremely careful with import paths - using the wrong import path can lead to incomplete type definitions. Always import from `react-markdown/lib/ast-to-react` when working with custom components.
+
+- When using `React.memo` with `ReactMarkdown` components, apply the type definition before memoization. This ensures proper type inference and prevents hard-to-debug type errors later.
+
+- Never use `@types/react-markdown` directly - let the types come from the `react-markdown` package itself. The DefinitelyTyped types can sometimes be outdated or incomplete.
+
+- Always provide explicit display names for your components, even though it might seem redundant. This becomes crucial for debugging and React DevTools usage.
+
+- When dealing with children props, always implement proper type-safe content extraction. This prevents runtime errors from circular references.
+
+## Production-Ready Templates and Implementation
+
+As promised, I'm sharing our battle-tested templates: [Github: Markdown Renderer](https://github.com/muzaffar640/markdown-renderer)
+
+1. [MarkdownRenderer.tsx](https://raw.githubusercontent.com/muzaffar640/markdown-renderer/refs/heads/main/src/components/MarkdownRenderer.tsx): The main component that handles markdown rendering
+2. [components.tsx](https://raw.githubusercontent.com/muzaffar640/markdown-renderer/refs/heads/main/src/components/component.tsx): Custom components with proper typing
+3. [CodeBlock.tsx](https://raw.githubusercontent.com/muzaffar640/markdown-renderer/refs/heads/main/src/components/CodeBlock.tsx): A reusable code block component with syntax highlighting
+4. [codeLanguageSubset.ts](https://raw.githubusercontent.com/muzaffar640/markdown-renderer/refs/heads/main/src/utils/stream.ts): Supported language configurations
+
+These files have been refined through countless type errors and edge cases. They handle everything from basic markdown to complex mathematical equations and code syntax highlighting. You can add more html attributes to `component.tsx` like `image` and all.
+
+## Looking Forward
+
+What started as a "simple task" turned into a deep dive into TypeScript's type system and React's component model. The lessons learned have made me a better developer, and the solutions we discovered have saved countless hours for our team.
+
+I'm currently working on extending this setup to handle real-time collaborative markdown editing. If you're interested in that or have questions about the implementation details shared here, feel free to reach out.
+
+Remember: TypeScript errors are like that friend who always points out the spinach in your teeth. Annoying? Yes. But they're looking out for you! 😄
+
+---
+
+Found this helpful? Let's continue the conversation! I'm always excited to hear about your experiences and challenges with TypeScript and React.
+
+See ya,
+
+Muzaffar Hossain
+
+[LinkedIn](https://www.linkedin.com/in/muzaffarhossain) | [Twitter](https://x.com/iammuzaffar640) | [GitHub](https://github.com/muzaffar640)
