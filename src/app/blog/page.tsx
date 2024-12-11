@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import BlogList from "../components/BlogList";
+import Header from "../../components/Header";
+import BlogList from "../../components/Blog/BlogList";
 
 export default function BlogPage() {
   return (

@@ -1,8 +1,8 @@
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import ExperienceAndSkills from "./components/ExperienceAndSkills";
-import Blog from "./components/Blog";
+import Header from "../components/Header";
+import Hero from "../components/Hero";
+import About from "../components/About";
+import ExperienceAndSkills from "../components/ExperienceAndSkills";
+import Blog from "../components/Blog/Blog";
 
 export default function Home() {
   return (
