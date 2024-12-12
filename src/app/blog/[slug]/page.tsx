@@ -4,19 +4,16 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock } from "lucide-react";
-import { getPostBySlug } from "@/utils/mdx";
+import { getPostBySlug, getAllPosts } from "@/utils/mdx";
 import { MDXContent } from "@/components/MDX/MDXContent";
 import Header from "@/components/Header";
 
-interface BlogPostPageProps {
-  params: {
-    slug: string;
-  };
-}
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
-export async function generateMetadata({
-  params,
-}: BlogPostPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
 
   if (!post) {
@@ -36,13 +33,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPost({ params }: BlogPostPageProps) {
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export default async function BlogPost({ params }: Pick<Props, "params">) {
   const post = await getPostBySlug(params.slug);
 
   if (!post) {
     notFound();
   }
-
   return (
     <>
       <Header />
