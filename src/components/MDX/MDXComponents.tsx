@@ -21,8 +21,15 @@ interface MDXImageProps {
 interface ReactElementWithProps extends ReactElement {
   props: {
     children?: ReactNode;
-    [key: string]: any;
+    className?: string;
+    [key: string]: ReactNode | string | undefined;
   };
+}
+
+interface CodeProps {
+  children?: ReactNode;
+  className?: string;
+  [key: string]: ReactNode | string | undefined;
 }
 
 const H1: FC<PropsWithChildren> = ({ children }) => (
@@ -74,10 +81,7 @@ const extractTextContent = (node: ReactNode): string => {
   return "";
 };
 
-const Pre: FC<PropsWithChildren<{ className?: string }>> = ({
-  children,
-  className,
-}) => {
+const Pre: FC<CodeProps> = ({ children, className }) => {
   const [copied, setCopied] = useState(false);
 
   const onCopy = async (text: string) => {
