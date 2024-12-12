@@ -1,75 +1,101 @@
-import Link from "next/link";
+// src/components/Blog/BlogList.tsx
+"use client";
 
-const blogPosts = [
-  {
-    title: "Building Scalable React Applications",
-    date: "2024-03-01",
-    excerpt:
-      "Learn the best practices for building large-scale React applications that are maintainable and performant.",
-    slug: "building-scalable-react-applications",
-  },
-  {
-    title: "Optimizing NextJS Performance",
-    date: "2024-02-15",
-    excerpt:
-      "Discover techniques to boost your NextJS application's performance and improve user experience.",
-    slug: "optimizing-nextjs-performance",
-  },
-  {
-    title: "Advanced TypeScript Techniques",
-    date: "2024-01-30",
-    excerpt:
-      "Explore advanced TypeScript features and patterns to write more robust and type-safe code.",
-    slug: "advanced-typescript-techniques",
-  },
-  {
-    title: "Mastering CSS Grid Layout",
-    date: "2024-01-15",
-    excerpt:
-      "Deep dive into CSS Grid Layout and learn how to create complex, responsive layouts with ease.",
-    slug: "mastering-css-grid-layout",
-  },
-];
+import Link from "next/link";
+import { ArrowRight, Calendar } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import type { BlogPost } from "@/utils/mdx";
 
 export default function BlogList() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const response = await fetch("/api/posts");
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPosts();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+        <div className="container mx-auto px-6">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+              Loading...
+            </h2>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
       <div className="container mx-auto px-6">
         <h1 className="text-4xl font-bold mb-12 font-mono text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-center animate-fade-in">
           Blog Posts
         </h1>
+
         <div className="grid gap-8">
-          {blogPosts.map((post, index) => (
-            <div
-              key={index}
-              className="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 animate-fade-in"
+          {posts.map((post, index) => (
+            <Card
+              key={post.slug}
+              className="bg-gray-800 border-gray-700 hover:border-cyan-400/50 transition-all duration-300 animate-fade-in"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="p-6">
-                <h2 className="text-2xl font-semibold mb-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
-                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                </h2>
-                <p className="text-gray-400 text-sm mb-4">{post.date}</p>
-                <p className="text-gray-300 mb-4">{post.excerpt}</p>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 inline-flex items-center"
-                >
-                  Read more
-                  <svg
-                    className="w-4 h-4 ml-2"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 text-gray-400 mb-4">
+                  <Calendar size={16} />
+                  <time dateTime={post.date}>{post.date}</time>
+                </div>
+
+                <Link href={`/blog/${post.slug}`}>
+                  <h2 className="text-2xl font-semibold mb-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
+                    {post.title}
+                  </h2>
                 </Link>
-              </div>
-            </div>
+
+                <p className="text-gray-300 mb-4">{post.excerpt}</p>
+
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags?.map((tag, i) => (
+                      <Badge
+                        key={i}
+                        variant="secondary"
+                        className="bg-gray-700 text-cyan-400 hover:bg-gray-600"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors duration-300 group"
+                  >
+                    Read more
+                    <ArrowRight
+                      size={16}
+                      className="ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+                    />
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>

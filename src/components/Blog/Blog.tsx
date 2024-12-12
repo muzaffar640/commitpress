@@ -40,7 +40,6 @@ export default function Blog() {
       </section>
     );
   }
-  console.log("posts", posts);
 
   const recentPosts = posts.slice(0, 2);
 
