@@ -1,6 +1,7 @@
 // next.config.ts
 import createMDX from "@next/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
+import type { NextConfig } from "next";
 
 interface PrettyCodeNode {
   children: Array<{ type: string; value: string }>;
@@ -27,10 +28,17 @@ const prettyCodeOptions = {
   },
 };
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   images: {
-    domains: ["localhost"],
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "",
+        pathname: "/**",
+      } as const,
+    ],
   },
 };
 
