@@ -148,3 +148,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  /* Base prose styles */
+  .prose pre {
+    @apply bg-gray-900 border border-gray-700 rounded-lg overflow-hidden;
+    margin: 0; /* Reset margin as we're handling it in the wrapper */
+  }
+
+  .prose pre code {
+    @apply text-green-500 !bg-transparent;
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  /* Inline code styling */
+  .prose :not(pre) > code {
+    @apply bg-gray-800 text-green-500 rounded px-1.5 py-0.5;
+    font-size: 0.875em;
+  }
+
+  /* Link styling */
+  .prose a {
+    @apply text-cyan-400 hover:text-cyan-300 transition-colors duration-200;
+  }
+
+  /* Code block highlight styles */
+  .prose .highlighted {
+    @apply bg-gray-800/50 border-l-2 border-cyan-500;
+  }
+
+  .prose .word {
+    @apply bg-gray-700/50 rounded p-1;
+  }
+}

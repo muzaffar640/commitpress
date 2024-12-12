@@ -1,7 +1,14 @@
-// src/components/mdx/MDXComponents.tsx
-import { FC, PropsWithChildren } from "react";
+"use client";
+import React, {
+  FC,
+  PropsWithChildren,
+  ReactElement,
+  ReactNode,
+  useState,
+} from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Check, Copy } from "lucide-react";
 
 // Define proper types for Next.js Image component
 interface MDXImageProps {
@@ -9,6 +16,18 @@ interface MDXImageProps {
   alt: string;
   width?: number;
   height?: number;
+}
+
+interface CodeBlockProps {
+  className?: string;
+  children: string;
+}
+
+interface ReactElementWithProps extends ReactElement {
+  props: {
+    children?: ReactNode;
+    [key: string]: any;
+  };
 }
 
 const H1: FC<PropsWithChildren> = ({ children }) => (
@@ -49,20 +68,69 @@ const InlineCode: FC<PropsWithChildren> = ({ children }) => (
   </code>
 );
 
+const extractTextContent = (node: ReactNode): string => {
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractTextContent).join("");
+  if (React.isValidElement(node)) {
+    const element = node as ReactElementWithProps;
+    return extractTextContent(element.props.children || "");
+  }
+  return "";
+};
+
 const Pre: FC<PropsWithChildren<{ className?: string }>> = ({
   children,
   className,
-}) => (
-  <pre
-    className={cn(
-      "p-4 mb-4 rounded-lg bg-gray-800 overflow-x-auto",
-      "border border-gray-700",
-      className
-    )}
-  >
-    {children}
-  </pre>
-);
+}) => {
+  const [copied, setCopied] = useState(false);
+
+  const onCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+  };
+
+  const rawCode = extractTextContent(children);
+  const language = className?.replace("language-", "") || "plaintext";
+
+  return (
+    <div className="relative group">
+      <div className="absolute right-4 top-4 z-10">
+        <button
+          onClick={() => onCopy(rawCode)}
+          className={cn(
+            "p-2 rounded-lg transition-all",
+            "bg-gray-800 hover:bg-gray-700",
+            "focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          )}
+        >
+          {copied ? (
+            <Check className="h-4 w-4 text-green-500" />
+          ) : (
+            <Copy className="h-4 w-4 text-gray-400" />
+          )}
+        </button>
+      </div>
+      <div className="absolute left-4 top-3 text-sm text-gray-500">
+        {language}
+      </div>
+      <pre
+        className={cn(
+          "mt-6 relative rounded-lg bg-gray-900 p-4",
+          "overflow-x-auto text-sm leading-6",
+          className
+        )}
+      >
+        {children}
+      </pre>
+    </div>
+  );
+};
 
 const BlockQuote: FC<PropsWithChildren> = ({ children }) => (
   <blockquote className="border-l-4 border-cyan-400 pl-4 mb-4 italic text-gray-300">

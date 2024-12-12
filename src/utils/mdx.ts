@@ -43,7 +43,12 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     const { content: mdxContent } = await compileMDX({
       source: content,
       components: MDXComponents,
-      options: { parseFrontmatter: true },
+      options: {
+        parseFrontmatter: true,
+        mdxOptions: {
+          remarkPlugins: [],
+        },
+      },
     });
 
     const wordCount = content.split(/\s+/g).length;
