@@ -18,11 +18,6 @@ interface MDXImageProps {
   height?: number;
 }
 
-interface CodeBlockProps {
-  className?: string;
-  children: string;
-}
-
 interface ReactElementWithProps extends ReactElement {
   props: {
     children?: ReactNode;
