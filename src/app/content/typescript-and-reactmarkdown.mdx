@@ -115,15 +115,10 @@ const extractTextContent = (node: React.ReactNode): string => {
 Through this journey, we discovered several crucial best practices:
 
 - Always use the Components type from `react-markdown/lib/ast-to-react` for custom components - it provides the most complete type definitions for all ReactMarkdown component properties.
-
 - Be extremely careful with import paths - using the wrong import path can lead to incomplete type definitions. Always import from `react-markdown/lib/ast-to-react` when working with custom components.
-
 - When using `React.memo` with `ReactMarkdown` components, apply the type definition before memoization. This ensures proper type inference and prevents hard-to-debug type errors later.
-
 - Never use `@types/react-markdown` directly - let the types come from the `react-markdown` package itself. The DefinitelyTyped types can sometimes be outdated or incomplete.
-
 - Always provide explicit display names for your components, even though it might seem redundant. This becomes crucial for debugging and React DevTools usage.
-
 - When dealing with children props, always implement proper type-safe content extraction. This prevents runtime errors from circular references.
 
 ## Production-Ready Templates and Implementation

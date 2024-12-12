@@ -1,10 +1,13 @@
+// app/blog/[slug]/page.tsx
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock } from "lucide-react";
-import { getPostBySlug, getAllPosts } from "@/utils/mdx";
+import { getPostBySlug } from "@/utils/mdx";
+import { MDXContent } from "@/components/MDX/MDXContent";
+import Header from "@/components/Header";
 
 interface BlogPostPageProps {
   params: {
@@ -34,14 +37,6 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const posts = await getAllPosts();
-
-  return posts?.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
 export default async function BlogPost({ params }: BlogPostPageProps) {
   const post = await getPostBySlug(params.slug);
 
@@ -50,23 +45,15 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
   }
 
   return (
-    <article className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <Card className="bg-gray-800 border-gray-700">
-          <CardContent className="p-6">
-            {/* Cover Image */}
-            <div className="relative w-full h-[400px] mb-8 rounded-lg overflow-hidden">
-              <Image
-                src={post.coverImage}
-                alt={post.title}
-                fill
-                priority
-                className="object-cover"
-              />
-            </div>
+    <>
+      <Header />
+      <article className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+        <div className="container mx-auto px-4 max-w-4xl">
+          {/* Hero Section */}
+          <div className="mb-12 text-center">
+            <h1 className="text-5xl font-bold mb-6 text-white">{post.title}</h1>
 
-            {/* Meta Information */}
-            <div className="flex flex-wrap gap-4 mb-6 text-gray-400">
+            <div className="flex items-center justify-center gap-4 mb-6 text-gray-400">
               <div className="flex items-center gap-2">
                 <Calendar size={16} />
                 <time dateTime={post.date}>{post.date}</time>
@@ -77,13 +64,7 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
               </div>
             </div>
 
-            {/* Title */}
-            <h1 className="text-4xl font-bold mb-6 text-cyan-400">
-              {post.title}
-            </h1>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mb-8">
+            <div className="flex flex-wrap gap-2 justify-center">
               {post.tags?.map((tag, i) => (
                 <Badge
                   key={i}
@@ -94,12 +75,29 @@ export default async function BlogPost({ params }: BlogPostPageProps) {
                 </Badge>
               ))}
             </div>
+          </div>
 
-            {/* Content */}
-            <div className="prose prose-invert max-w-none">{post.content}</div>
-          </CardContent>
-        </Card>
-      </div>
-    </article>
+          {/* Cover Image */}
+          <div className="relative w-full h-[500px] mb-12 rounded-xl overflow-hidden">
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+
+          {/* Content */}
+          <Card className="bg-gray-800 border-gray-700">
+            <CardContent className="p-8 lg:p-12">
+              <div className="prose prose-invert prose-lg max-w-none">
+                <MDXContent source={post.content} />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </article>
+    </>
   );
 }

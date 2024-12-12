@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
+import { MDXComponents } from "@/components/MDX/MDXComponents";
 
 const POSTS_PATH = path.join(process.cwd(), "src/app/content");
 
@@ -34,20 +35,14 @@ function ensureBlogDirectory() {
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    ensureBlogDirectory();
     const filePath = path.join(POSTS_PATH, `${slug}.mdx`);
-
-    if (!fs.existsSync(filePath)) {
-      console.log(`Post not found: ${slug}`);
-      return null;
-    }
-
     const fileContent = fs.readFileSync(filePath, "utf8");
+
     const { data, content } = matter(fileContent);
-    const frontmatter = data as BlogFrontmatter;
 
     const { content: mdxContent } = await compileMDX({
       source: content,
+      components: MDXComponents,
       options: { parseFrontmatter: true },
     });
 
@@ -58,7 +53,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       slug,
       content: mdxContent,
       readingTime,
-      ...frontmatter,
+      ...(data as Omit<BlogPost, "slug" | "content" | "readingTime">),
     };
   } catch (error) {
     console.error(`Error processing post ${slug}:`, error);
