@@ -6,10 +6,10 @@ import { Building2, Calendar, ChevronRight } from "lucide-react";
 const experiences = [
   {
     company: "Transilience AI",
-    position: "Software Engineer",
+    position: "Founding Software Engineer",
     duration: "Jul 2024 - Present",
     description:
-      "Building frontend for cybersecurity applications and streaming components for custom streaming endpoints.",
+      "We are building Transilience AI to make Cybersecurity Engineers' life Joyful. Working on frontend development for cybersecurity applications and building streaming components for our custom streaming endpoint",
     highlights: [
       "Custom streaming solutions",
       "Cybersecurity interfaces",
@@ -18,10 +18,10 @@ const experiences = [
   },
   {
     company: "ThoughtGreen Technologies Inc",
-    position: "Software Engineer",
+    position: "Senior Software Engineer",
     duration: "Feb 2021 - Jul 2024",
     description:
-      "Led development of iFinish application, developed user modules with TypeScript, React, and ChartJs.",
+      "Led development of iFinish application, developed user modules with TypeScript, React, and ChartJs.  Developed SFP Insights full-stack admin portal using GraphQL APIs with React, AWS Amplify, and DynamoDB, integrating stakeholder project management functionalities. Develop Smart Analytical Model (SAM) and Vital Monitoring System (VMS) for health & safety apps, leveraging AI/ML, with React and TypeScript on the front-end. Built and Maintained several modules for Sardar Vallabhbhai Patel National Police Academy - NPA, a civil service training institution",
     highlights: [
       "Front-end architecture",
       "Data visualization",
@@ -33,11 +33,33 @@ const experiences = [
     position: "Software Engineer",
     duration: "Feb 2020 - Feb 2021",
     description:
-      "Developed and maintained company website, ensured cross-browser compatibility, and improved website performance.",
+      "I developed and maintained the company website, integrating data from REST APIs and ensuring cross-browser compatibility across major browsers. I also enhanced the website’s performance by 32%, added new features, and collaborated closely with the UI/UX design team for smoother functionality",
     highlights: [
       "Web optimization",
       "Cross-browser testing",
       "Performance tuning",
+    ],
+  },
+  {
+    company: "Ananth Technologies",
+    position: "Junior Front End Developer ",
+    duration: "May 2019 - Feb 2020",
+    description:
+      "Successfully transitioned from mechanical design to software engineering, building 6 responsive websites with HTML, CSS, JavaScript. Exposure to creating SPA using ReactJS, by using the concept of virtual DOM",
+    highlights: ["Web Development", "ReactJs", "Responsive Design"],
+  },
+  {
+    company: "Ananth Technologies",
+    position: "Computer Aided Design Engineer",
+    duration: "Apr 2016 - May 2019",
+    description:
+      "I specialize in designing, analyzing, and refining concrete structures in Tilt-Up Technology, ensuring compliance with engineering standards using AotoCAD and Revit",
+    highlights: [
+      "Structural Design",
+      "Concrete Engineering",
+      "TiltUpTechnology",
+      "AutoCAD",
+      "Revit",
     ],
   },
 ];
@@ -112,7 +134,11 @@ export default function ExperienceAndSkills() {
                       <p className="text-cyan-400 font-medium mb-3">
                         {exp.position}
                       </p>
-                      <p className="text-gray-300 mb-4">{exp.description}</p>
+                      <div className="text-gray-300 mb-4">
+                        {exp.description.split(". ").map((sentence, i) => (
+                          <p key={i}>• {sentence.trim()}.</p>
+                        ))}
+                      </div>
                       <div className="flex flex-wrap gap-2">
                         {exp.highlights.map((highlight, i) => (
                           <Badge
