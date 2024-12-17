@@ -6,7 +6,7 @@ export default function About() {
           About Me
         </h2>
         <div className="max-w-3xl mx-auto">
-          <p className="text-lg mb-6 text-gray-300 animate-fade-in animation-delay-300 leading-relaxed">
+          <p className="text-lg mb-6 text-gray-300 animate-fade-in animation-delay-300 leading-relaxed text-justify">
             As a software engineer, I see myself first and foremost as a problem
             solver. I dive deep into understanding both the business landscape
             and market dynamics of each product, while keeping the
@@ -19,7 +19,7 @@ export default function About() {
             hit roadblocks – but that&#39;s what keeps me energized and
             passionate about what I do.
           </p>
-          <p className="text-lg mb-6 text-gray-300 animate-fade-in animation-delay-600 leading-relaxed">
+          <p className="text-lg mb-6 text-gray-300 animate-fade-in animation-delay-600 leading-relaxed text-justify">
             My journey has led me to specialize in front-end development, and
             I&#39;m currently building front-end solutions for custom streaming
             agents in the Cyber Security field. I had to study and learn a lot
@@ -28,7 +28,7 @@ export default function About() {
             technology, especially in a field that&#39;s constantly evolving and
             challenging us to adapt.
           </p>
-          <p className="text-lg mb-6 text-gray-300 animate-fade-in animation-delay-900 leading-relaxed">
+          <p className="text-lg mb-6 text-gray-300 animate-fade-in animation-delay-900 leading-relaxed text-justify">
             I&#39;ve had the opportunity to build several full-stack,
             multi-tenant applications using React with TypeScript, leveraging
             AWS Amplify for backend services. This work has expanded my
