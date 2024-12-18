@@ -21,7 +21,7 @@ const experiences = [
     position: "Senior Software Engineer",
     duration: "Feb 2021 - Jul 2024",
     description:
-      "Led development of iFinish application, developed user modules with TypeScript, React, and ChartJs.  Developed SFP Insights full-stack admin portal using GraphQL APIs with React, AWS Amplify, and DynamoDB, integrating stakeholder project management functionalities. Develop Smart Analytical Model (SAM) and Vital Monitoring System (VMS) for health & safety apps, leveraging AI/ML, with React and TypeScript on the front-end. Built and Maintained several modules for Sardar Vallabhbhai Patel National Police Academy - NPA, a civil service training institution",
+      "Led development of iFinish application, developed user modules with TypeScript, React, and ChartJs.  Developed SFP Insights full-stack admin portal using GraphQL APIs with React, AWS Amplify, and DynamoDB, integrating stakeholder project management functionalities.Front-end developer for Smart Analytical Model (SAM) and Vital Monitoring System (VMS) health & safety applications, utilizing React and TypeScript with AI/ML integration. Built and Maintained several modules for Sardar Vallabhbhai Patel National Police Academy - NPA, a civil service training institution",
     highlights: [
       "Front-end architecture",
       "Data visualization",
@@ -67,7 +67,14 @@ const experiences = [
 const skillCategories = [
   {
     name: "Core Technologies",
-    skills: ["JavaScript", "TypeScript", "React", "NextJS", "NodeJS"],
+    skills: [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "NextJS",
+      "NodeJS",
+      "AWS Amplify",
+    ],
   },
   {
     name: "Backend & Database",
@@ -87,6 +94,8 @@ const skillCategories = [
       "Data Visualization",
       "Streaming Markdown",
       "AI Front end",
+      "Storybook",
+      "Jest",
     ],
   },
   {
