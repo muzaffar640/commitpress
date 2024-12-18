@@ -1,5 +1,6 @@
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { HighlightInit } from "@highlight-run/next/client";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -38,6 +39,7 @@ export default function RootLayout({
           className={`${inter.variable} ${jetBrainsMono.variable} font-sans bg-gray-900 text-gray-100`}
         >
           {children}
+          <Analytics />
         </body>
       </html>
     </>
