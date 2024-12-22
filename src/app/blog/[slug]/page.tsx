@@ -8,6 +8,7 @@ import { getPostBySlug } from "@/utils/mdx";
 import { MDXContent } from "@/components/MDX/MDXContent";
 import Header from "@/components/Header";
 import SuggestedBlog from "@/components/Blog/SuggestedBlog";
+import Footer from "@/components/Footer";
 
 export async function generateMetadata({
   params,
@@ -101,6 +102,7 @@ export default async function BlogPost({
         </div>
       </article>
       <SuggestedBlog />
+      <Footer />
     </>
   );
 }
