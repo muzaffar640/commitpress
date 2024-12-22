@@ -7,6 +7,7 @@ import { Calendar, Clock } from "lucide-react";
 import { getPostBySlug } from "@/utils/mdx";
 import { MDXContent } from "@/components/MDX/MDXContent";
 import Header from "@/components/Header";
+import SuggestedBlog from "@/components/Blog/SuggestedBlog";
 
 export async function generateMetadata({
   params,
@@ -48,7 +49,7 @@ export default async function BlogPost({
   return (
     <>
       <Header />
-      <article className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+      <article className="pt-20 bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Hero Section */}
           <div className="mb-12 text-center">
@@ -99,6 +100,7 @@ export default async function BlogPost({
           </Card>
         </div>
       </article>
+      <SuggestedBlog />
     </>
   );
 }
