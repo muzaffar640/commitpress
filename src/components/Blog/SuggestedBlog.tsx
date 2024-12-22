@@ -58,14 +58,14 @@ export default function SuggestedBlog() {
               key={post.slug}
               className="bg-gray-800 border-gray-700 hover:border-cyan-400/50 transition-all duration-300 group"
             >
-              <CardContent className="p-6">
+              <CardContent className="p-6 flex flex-col h-full">
                 <div className="flex items-center gap-2 text-gray-400 mb-4">
                   <Calendar size={16} />
                   <time dateTime={post.date}>{post.date}</time>
                 </div>
 
                 <Link href={`/blog/${post.slug}`} className="block group">
-                  <CardTitle className="text-xl mb-3 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300">
+                  <CardTitle className="text-xl mb-3 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300 line-clamp-3">
                     {post.title}
                   </CardTitle>
                 </Link>
@@ -74,7 +74,7 @@ export default function SuggestedBlog() {
                   {post.excerpt}
                 </p>
 
-                <div className="space-y-4">
+                <div className="space-y-4 mt-auto">
                   <div className="flex flex-wrap gap-2">
                     {post.tags?.map((tag, i) => (
                       <Badge
