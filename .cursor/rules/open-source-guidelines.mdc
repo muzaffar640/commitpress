@@ -1,0 +1,160 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Open Source Contribution Guidelines
+
+## Project Philosophy
+
+This is a **database-free blog system** that prioritizes:
+- **Simplicity** over complexity
+- **Developer experience** over feature bloat
+- **Performance** through static generation
+- **Accessibility** for all users
+
+## Contribution Standards
+
+### Code Quality
+- Follow existing code patterns in [src/](mdc:src)
+- Maintain TypeScript strict mode compliance
+- Write clear, self-documenting code
+- Add JSDoc comments for complex functions
+
+### Database-Free Principle
+- **Never** add database dependencies
+- Keep the "two-commit workflow" intact
+- File-based content management only
+- Static generation preferred over dynamic rendering
+
+### Documentation Requirements
+- Update [README.md](mdc:README.md) for major changes
+- Update [CONTRIBUTING.md](mdc:CONTRIBUTING.md) for process changes
+- Add comments for non-obvious code
+- Include examples in pull requests
+
+## Testing New Features
+
+### Before Submitting PR
+- Test locally with `npm run dev`
+- Verify build works with `npm run build`
+- Test with different MDX content
+- Check responsive design
+- Validate accessibility
+
+### Demo Content Guidelines
+- Keep existing demo posts as examples
+- Don't add personal content to the main branch
+- Demo posts should showcase different content types
+- Maintain professional, educational tone
+
+## File Structure Conventions
+
+### Component Organization
+```
+src/
+├── app/
+│   ├── content/          # Demo blog posts (.mdx files)
+│   ├── blog/            # Blog-related pages
+│   └── globals.css      # Global styles
+├── components/          # Reusable React components
+│   ├── ui/             # shadcn/ui components
+│   ├── Blog/           # Blog-specific components
+│   └── MDX/            # MDX-related components
+├── utils/              # Utility functions
+│   └── mdx.ts          # Core MDX processing logic
+└── types/              # TypeScript type definitions
+```
+
+### Naming Conventions
+- **Components**: PascalCase (e.g., `BlogCard.tsx`)
+- **Files**: kebab-case for pages (e.g., `blog-post.tsx`)
+- **Utilities**: camelCase (e.g., `formatDate.ts`)
+- **Types**: PascalCase with descriptive names
+
+## Pull Request Guidelines
+
+### PR Description Must Include
+1. **What**: Brief description of changes
+2. **Why**: Motivation/problem being solved
+3. **How**: Technical approach taken
+4. **Testing**: How changes were verified
+5. **Breaking Changes**: Any compatibility issues
+
+### Example PR Template
+```markdown
+## What does this PR do?
+Adds dark mode support to the blog system
+
+## Why is this needed?
+Users requested dark mode for better reading experience
+
+## How to test?
+1. Toggle the theme switcher
+2. Navigate between pages
+3. Verify all components respect theme
+
+## Database-Free Compatibility
+✅ No database dependencies added
+✅ Maintains static generation
+✅ Two-commit workflow preserved
+```
+
+## Feature Guidelines
+
+### What to Add
+- **Performance improvements**
+- **Accessibility enhancements**
+- **Developer experience improvements**
+- **New MDX components**
+- **Better documentation**
+
+### What to Avoid
+- Database integrations
+- Complex CMS features
+- Heavy dependencies
+- Authentication systems
+- Admin panels
+
+## Release Process
+
+### Version Bumping
+- **Patch**: Bug fixes, small improvements
+- **Minor**: New features, component additions
+- **Major**: Breaking changes, architecture updates
+
+### Changelog Maintenance
+- Update for each release
+- Group changes by type (Added, Changed, Fixed, Removed)
+- Link to relevant PRs and issues
+- Highlight breaking changes
+
+## Community Standards
+
+### Code of Conduct
+- Be respectful and inclusive
+- Focus on constructive feedback
+- Help newcomers learn
+- Assume good intentions
+
+### Communication
+- Use clear, descriptive commit messages
+- Reference issues in commits: `fixes #123`
+- Ask questions in GitHub Discussions
+- Share knowledge through documentation
+
+## Quality Assurance
+
+### Before Merging
+- [ ] Code follows project standards
+- [ ] All tests pass
+- [ ] Documentation updated
+- [ ] No breaking changes (or documented)
+- [ ] Performance impact considered
+- [ ] Accessibility verified
+
+### Automated Checks
+- TypeScript compilation
+- ESLint validation
+- Build verification
+- Deploy preview generation

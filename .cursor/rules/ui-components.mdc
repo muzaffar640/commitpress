@@ -1,0 +1,185 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# UI Components
+
+## Component Organization
+
+- Basic UI components should be placed in [src/components/ui/](mdc:src/components/ui)
+- Blog-specific components should be placed in [src/components/Blog/](mdc:src/components/Blog)
+- MDX components should be placed in [src/components/MDX/](mdc:src/components/MDX)
+- Layout components should be placed in [src/components/](mdc:src/components)
+
+## UI Component Guidelines
+
+- Create small, reusable components
+- Use TypeScript interfaces for props
+- Follow a consistent naming convention
+- Implement proper accessibility attributes
+- Use Tailwind CSS for styling
+- Follow shadcn/ui patterns when possible
+
+## Component Examples
+
+### Button Component
+
+```tsx
+// Basic button component example
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+}
+
+const Button = ({ 
+  variant = 'primary', 
+  size = 'md', 
+  children, 
+  onClick, 
+  disabled = false,
+  className = ''
+}: ButtonProps) => {
+  const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50';
+  
+  const variantClasses = {
+    primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+    outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground'
+  };
+  
+  const sizeClasses = {
+    sm: 'h-9 px-3 text-sm',
+    md: 'h-10 px-4 py-2',
+    lg: 'h-11 px-8 text-lg'
+  };
+
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+    >
+      {children}
+    </button>
+  );
+};
+```
+
+### Card Component
+
+```tsx
+// Basic card component example
+interface CardProps {
+  title?: string;
+  description?: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Card = ({ title, description, children, className = '' }: CardProps) => {
+  return (
+    <div className={`rounded-lg border bg-card text-card-foreground shadow-sm ${className}`}>
+      <div className="p-6">
+        {title && <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">{title}</h3>}
+        {description && <p className="text-sm text-muted-foreground mb-4">{description}</p>}
+        {children}
+      </div>
+    </div>
+  );
+};
+```
+
+### Blog-Specific Components
+
+```tsx
+// Blog post card component
+interface BlogPostCardProps {
+  title: string;
+  excerpt: string;
+  date: string;
+  tags: string[];
+  slug: string;
+  coverImage?: string;
+  readingTime: string;
+}
+
+const BlogPostCard = ({ title, excerpt, date, tags, slug, coverImage, readingTime }: BlogPostCardProps) => {
+  return (
+    <article className="group cursor-pointer">
+      <Link href={`/blog/${slug}`} className="block">
+        {coverImage && (
+          <div className="aspect-video mb-4 overflow-hidden rounded-lg">
+            <Image
+              src={coverImage}
+              alt={title}
+              width={400}
+              height={225}
+              className="h-full w-full object-cover transition-transform group-hover:scale-105"
+            />
+          </div>
+        )}
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold line-clamp-2 group-hover:text-primary">
+            {title}
+          </h2>
+          <p className="text-muted-foreground line-clamp-3">
+            {excerpt}
+          </p>
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <time dateTime={date}>{new Date(date).toLocaleDateString()}</time>
+            <span>{readingTime}</span>
+          </div>
+          {tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <Badge key={tag} variant="secondary">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+          )}
+        </div>
+      </Link>
+    </article>
+  );
+};
+```
+
+## Using Shadcn/UI Components
+
+- Install components using the shadcn/ui CLI
+- Customize components with Tailwind CSS variables
+- Follow accessibility best practices
+- Use consistent design tokens
+
+```bash
+# Adding new shadcn/ui components
+npx shadcn-ui@latest add button
+npx shadcn-ui@latest add card
+npx shadcn-ui@latest add badge
+```
+
+## Styling Guidelines
+
+- Use CSS variables defined in [src/app/globals.css](mdc:src/app/globals.css)
+- Follow the design system color palette
+- Implement dark mode support through CSS variables
+- Use semantic class names for better maintainability
+
+## Accessibility Requirements
+
+- All interactive elements must be keyboard accessible
+- Implement proper ARIA attributes
+- Ensure sufficient color contrast
+- Provide focus indicators
+- Use semantic HTML elements

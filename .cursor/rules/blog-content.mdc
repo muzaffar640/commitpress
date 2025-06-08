@@ -1,0 +1,109 @@
+---
+description: 
+globs: .mdx,blog
+alwaysApply: false
+---
+---
+description:
+globs:
+alwaysApply: false
+---
+# Blog Content Management
+
+## MDX Content
+
+- Blog content uses MDX for rich content with React components
+- Content files are stored in [src/app/content](mdc:src/app/content)
+- Use gray-matter for frontmatter parsing
+- Use remark and rehype plugins for content processing
+- **Demo Content**: Current posts are examples - replace with your own content
+
+## Blog Structure
+
+- Blog pages are in [src/app/blog](mdc:src/app/blog)
+- The main blog index page is at [src/app/blog/page.tsx](mdc:src/app/blog/page.tsx)
+- Individual blog posts use dynamic routing with [slug] parameter
+- MDX processing handled by [src/utils/mdx.ts](mdc:src/utils/mdx.ts)
+
+## Content Fetching
+
+- Fetch blog content in Server Components using [src/utils/mdx.ts](mdc:src/utils/mdx.ts)
+- File system acts as the database (database-free approach)
+- Use proper caching for blog content
+- Automatic reading time calculation included
+
+## Frontmatter Standards
+
+Use consistent frontmatter structure for all posts:
+
+```yaml
+---
+title: "Your Post Title"
+date: "2024-01-12"
+author: "Author Name"
+coverImage: "/blog/images/your-cover.jpg"
+tags: ["tag1", "tag2", "tag3"]
+excerpt: "Brief description for SEO and social sharing"
+---
+```
+
+## Example Blog Post Structure
+
+```mdx
+---
+title: 'Getting Started with Database-Free Blogging'
+date: '2024-01-15'
+author: 'Your Name'
+coverImage: '/blog/images/getting-started.jpg'
+tags: ['blogging', 'nextjs', 'mdx']
+excerpt: 'Learn how to create your first post in this database-free blog system'
+---
+
+# Getting Started with Database-Free Blogging
+
+Welcome to your new blog! This system uses MDX files instead of a database.
+
+## Writing Your First Post
+
+1. Create a new `.mdx` file in [src/app/content](mdc:src/app/content)
+2. Add frontmatter with title, date, and other metadata
+3. Write your content using Markdown syntax
+4. Commit and push to publish
+
+## Code Examples
+
+```javascript
+// You get syntax highlighting out of the box
+const greeting = "Hello, Database-Free World!";
+console.log(greeting);
+```
+
+## React Components
+
+You can use React components directly in your MDX:
+
+<div style={{padding: '1rem', background: '#f0f0f0', borderRadius: '8px'}}>
+  This is a React component inside MDX!
+</div>
+```
+
+## Content Types Supported
+
+- **Technical tutorials** with syntax highlighting
+- **Personal reflections** and stories
+- **Documentation** with interactive examples
+- **Mixed content** with images, tables, and components
+
+## Publishing Workflow
+
+1. **Write**: Create/edit `.mdx` files locally
+2. **Preview**: Use `npm run dev` to see changes
+3. **Publish**: `git add . && git commit -m "Add new post" && git push`
+4. **Live**: Post automatically appears on your blog
+
+## SEO and Performance
+
+- Automatic meta tag generation
+- Reading time calculation
+- Optimized static generation
+- Social sharing optimization

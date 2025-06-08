@@ -1,0 +1,69 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Coding Standards
+
+## TypeScript Guidelines
+
+- Use TypeScript for all components and functions
+- Define proper interfaces for component props
+- Avoid using `any` type
+- Use proper type annotations for functions and variables
+
+## Component Structure
+
+- Server Components are the default (no 'use client' directive needed)
+- Only use Client Components when interactivity or hooks are required
+- Use the following component definition syntax:
+
+```tsx
+// Server Component (default)
+const ComponentName = ({ prop1, prop2 }: ComponentNameProps) => {
+  return <div>Content</div>;
+};
+
+// Client Component
+'use client'
+
+const ClientComponent = ({ prop1, prop2 }: ClientComponentProps) => {
+  const [state, setState] = useState(initialState);
+  return <div>Interactive Content</div>;
+};
+```
+
+## UI Component Library
+
+- Use shadcn/ui for new reusable components whenever possible
+- Follow shadcn/ui patterns and examples in the [app/components/ui](mdc:app/components/ui) directory
+- Customize shadcn components with Tailwind CSS to match the design system
+- When extending shadcn components, maintain consistent API patterns
+- Only create custom components when a suitable shadcn component doesn't exist
+
+## Styling with Tailwind CSS
+
+- Use Tailwind classes for all styling
+- Follow responsive design patterns (mobile-first)
+- Use the project's color scheme defined in [tailwind.config.ts](mdc:tailwind.config.ts)
+- Avoid inline styles
+
+## File Structure
+
+- Use .tsx extension for React components
+- Use .ts extension for utility functions and types
+- Create reusable components in the components directory
+- Organize related components in subdirectories
+
+## Next.js Best Practices
+
+- Use metadata API for SEO in layout or page files
+- Implement efficient data fetching in Server Components
+- Use proper loading and error handling with loading.tsx and error.tsx
+- Use Next.js Image component for optimized images
+- Implement appropriate caching strategies

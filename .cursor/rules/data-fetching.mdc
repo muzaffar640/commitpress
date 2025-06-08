@@ -1,0 +1,87 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Data Fetching Patterns
+
+## Server Component Data Fetching
+
+- Prefer fetching data directly in Server Components
+- Use the native `fetch` API which is automatically memoized in Next.js
+- Implement proper caching and revalidation strategies
+
+```tsx
+// Example of data fetching in a Server Component
+async function ProductPage({ params }: { params: { id: string } }) {
+  const product = await fetchProduct(params.id);
+  return <div>{product.name}</div>;
+}
+```
+
+## API Routes
+
+- API routes should be created in the [app/api](mdc:app/api) directory
+- Use the route.ts pattern for API handlers
+- Implement proper error handling and status codes
+
+```tsx
+// Example API route in app/api/products/route.ts
+export async function GET(request: Request) {
+  try {
+    const products = await fetchProducts();
+    return Response.json(products);
+  } catch (error) {
+    return Response.json({ error: 'Failed to fetch products' }, { status: 500 });
+  }
+}
+```
+
+## Caching and Revalidation
+
+- Use appropriate cache settings for fetch requests
+- Implement revalidation strategies based on data requirements:
+
+```tsx
+// Example with revalidation time
+async function fetchData() {
+  const res = await fetch('https://api.example.com/data', { 
+    next: { revalidate: 3600 } // Revalidate every hour
+  });
+  return res.json();
+}
+
+// Example with no caching for dynamic data
+async function fetchDynamicData() {
+  const res = await fetch('https://api.example.com/dynamic-data', { 
+    cache: 'no-store' 
+  });
+  return res.json();
+}
+```
+
+## Error Handling
+
+- Implement robust error handling for data fetching
+- Use try/catch blocks to handle errors
+- Create appropriate error UI with error.tsx files
+
+## Parallel Data Fetching
+
+- Use Promise.all for parallel data fetching when appropriate:
+
+```tsx
+async function ParallelFetchExample() {
+  const [data1, data2] = await Promise.all([
+    fetchFirstDataSource(),
+    fetchSecondDataSource()
+  ]);
+  
+  return <Component data1={data1} data2={data2} />;
+}
+```

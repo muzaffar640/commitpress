@@ -1,0 +1,198 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Performance and Accessibility Guidelines
+
+## Performance Optimization
+
+### Image Optimization
+- Always use Next.js `Image` component from `next/image`
+- Optimize images before adding to [public/](mdc:public) directory
+- Use appropriate image formats (WebP, AVIF when possible)
+- Add proper `alt` attributes for accessibility
+- Use `priority` prop for above-the-fold images
+
+```tsx
+import Image from 'next/image';
+
+// Optimized image usage
+<Image
+  src="/blog/images/cover.jpg"
+  alt="Descriptive alt text for screen readers"
+  width={800}
+  height={400}
+  priority // For above-the-fold images
+  className="rounded-lg"
+/>
+```
+
+### Static Generation
+- Prefer Server Components over Client Components
+- Use static generation for blog content
+- Minimize JavaScript bundle size
+- Implement proper caching strategies
+
+### Code Splitting
+- Dynamic imports for heavy components
+- Lazy load non-critical components
+- Use React.memo for expensive components
+
+```tsx
+// Dynamic import example
+const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
+  loading: () => <div>Loading...</div>,
+  ssr: false // If component doesn't need SSR
+});
+```
+
+## Accessibility (a11y) Standards
+
+### Semantic HTML
+- Use proper heading hierarchy (h1 → h2 → h3)
+- Use semantic elements (`article`, `section`, `nav`, `main`)
+- Ensure proper document structure
+- Use landmarks for navigation
+
+### ARIA Attributes
+- Add `aria-label` for actions without text
+- Use `aria-describedby` for additional context
+- Implement `aria-expanded` for collapsible content
+- Add `role` attributes when semantic HTML isn't sufficient
+
+```tsx
+// Accessible button example
+<button
+  aria-label="Close modal"
+  aria-expanded={isOpen}
+  onClick={closeModal}
+  className="p-2 rounded-md focus:ring-2 focus:ring-blue-500"
+>
+  <CloseIcon aria-hidden="true" />
+</button>
+```
+
+### Focus Management
+- Ensure all interactive elements are keyboard accessible
+- Implement visible focus indicators
+- Manage focus for modals and dropdowns
+- Use proper tab order
+
+### Color and Contrast
+- Maintain WCAG AA contrast ratios (4.5:1 for normal text)
+- Don't rely on color alone to convey information
+- Test with color blindness simulators
+- Use the color palette defined in [tailwind.config.ts](mdc:tailwind.config.ts)
+
+## Mobile Optimization
+
+### Responsive Design
+- Mobile-first approach with Tailwind CSS
+- Test on various screen sizes
+- Ensure touch targets are minimum 44px
+- Optimize for thumb navigation
+
+### Performance on Mobile
+- Minimize bundle size for mobile networks
+- Use proper loading states
+- Implement skeleton screens for better perceived performance
+- Consider offline functionality
+
+## Core Web Vitals
+
+### Largest Contentful Paint (LCP)
+- Optimize hero images and text
+- Use Server Components for fast rendering
+- Implement proper image optimization
+
+### First Input Delay (FID)
+- Minimize JavaScript execution time
+- Use Server Components to reduce client-side JS
+- Defer non-critical JavaScript
+
+### Cumulative Layout Shift (CLS)
+- Always specify image dimensions
+- Reserve space for dynamic content
+- Avoid inserting content above existing content
+
+## SEO Performance
+
+### Meta Tags
+- Implement proper meta descriptions
+- Use Open Graph tags for social sharing
+- Add structured data for rich snippets
+- Ensure proper canonical URLs
+
+```tsx
+// SEO metadata example
+export const metadata: Metadata = {
+  title: 'Post Title | Your Blog',
+  description: 'Compelling description under 155 characters',
+  openGraph: {
+    title: 'Post Title',
+    description: 'Social media description',
+    images: ['/blog/images/og-image.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+};
+```
+
+### URL Structure
+- Use descriptive, keyword-rich URLs
+- Implement proper URL hierarchy
+- Ensure URLs are readable and meaningful
+
+## Loading States and Error Handling
+
+### Loading States
+- Implement skeleton screens for better UX
+- Use proper loading indicators
+- Show progress for long operations
+
+```tsx
+// Loading component example
+export default function Loading() {
+  return (
+    <div className="animate-pulse space-y-4">
+      <div className="h-8 bg-gray-200 rounded w-3/4"></div>
+      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+      <div className="h-48 bg-gray-200 rounded"></div>
+    </div>
+  );
+}
+```
+
+### Error Boundaries
+- Implement error boundaries for graceful failures
+- Provide helpful error messages
+- Include recovery actions when possible
+
+## Testing Guidelines
+
+### Accessibility Testing
+- Use automated tools (axe-core, Lighthouse)
+- Test with keyboard navigation only
+- Test with screen readers
+- Verify color contrast ratios
+
+### Performance Testing
+- Run Lighthouse audits regularly
+- Test on slow networks and devices
+- Monitor Core Web Vitals
+- Use performance profiling tools
+
+## Browser Compatibility
+
+### Modern Browser Support
+- Target modern browsers with ES6+ support
+- Use progressive enhancement
+- Test in different browsers
+- Consider polyfills only when necessary
+
+### Graceful Degradation
+- Ensure basic functionality without JavaScript
+- Provide fallbacks for modern features
+- Test with JavaScript disabled
