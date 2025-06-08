@@ -1,0 +1,300 @@
+---
+title: "Getting Started with Next.js 15: A Developer's Guide"
+date: "2024-01-10"
+author: "Demo Author"
+coverImage: "/blog/images/nextjs-tutorial-cover.jpg"
+tags: ["nextjs", "react", "tutorial", "javascript", "web-development"]
+excerpt: "Learn the fundamentals of Next.js 15 with practical examples and best practices. Perfect for developers making the transition from React."
+---
+
+# Getting Started with Next.js 15: A Developer's Guide
+
+Next.js has revolutionized how we build React applications, and with version 15, it's better than ever. In this comprehensive guide, we'll explore the key features and help you build your first Next.js application.
+
+## What is Next.js?
+
+Next.js is a **production-ready React framework** that provides:
+
+- 🚀 **Server-Side Rendering (SSR)**
+- ⚡ **Static Site Generation (SSG)**
+- 🔧 **API Routes**
+- 📦 **Automatic Code Splitting**
+- 🎨 **CSS and Sass Support**
+- 🔄 **Hot Reloading**
+
+## Setting Up Your First Project
+
+Let's create a new Next.js project from scratch:
+
+```bash
+# Create a new Next.js app
+npx create-next-app@latest my-next-app
+
+# Navigate to the project
+cd my-next-app
+
+# Start the development server
+npm run dev
+```
+
+Your application will be available at `http://localhost:3000`.
+
+## Project Structure
+
+Here's what you'll see in a fresh Next.js project:
+
+```
+my-next-app/
+├── app/
+│   ├── layout.tsx      # Root layout
+│   ├── page.tsx        # Home page
+│   └── globals.css     # Global styles
+├── public/             # Static assets
+├── next.config.js      # Next.js configuration
+└── package.json        # Dependencies
+```
+
+## Creating Your First Page
+
+With the App Router, creating pages is intuitive. Create a new file `app/about/page.tsx`:
+
+```tsx
+export default function About() {
+  return (
+    <div>
+      <h1>About Us</h1>
+      <p>Welcome to our amazing Next.js application!</p>
+    </div>
+  );
+}
+```
+
+That's it! Your page is now available at `/about`.
+
+## Dynamic Routes
+
+Create dynamic routes using square brackets. For example, `app/blog/[slug]/page.tsx`:
+
+```tsx
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function BlogPost({ params }: Props) {
+  const { slug } = await params;
+
+  return (
+    <div>
+      <h1>Blog Post: {slug}</h1>
+      <p>This is a dynamic route!</p>
+    </div>
+  );
+}
+```
+
+## Server Components vs Client Components
+
+**Server Components** (default) run on the server:
+
+```tsx
+// This runs on the server
+export default async function ServerComponent() {
+  const data = await fetch("https://api.example.com/data");
+  const posts = await data.json();
+
+  return (
+    <div>
+      {posts.map((post) => (
+        <article key={post.id}>
+          <h2>{post.title}</h2>
+        </article>
+      ))}
+    </div>
+  );
+}
+```
+
+**Client Components** run in the browser:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+
+export default function ClientComponent() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>Clicked {count} times</button>
+  );
+}
+```
+
+## Styling Options
+
+### CSS Modules
+
+```tsx
+import styles from "./page.module.css";
+
+export default function StyledPage() {
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Styled with CSS Modules</h1>
+    </div>
+  );
+}
+```
+
+### Tailwind CSS (Recommended)
+
+```tsx
+export default function TailwindPage() {
+  return (
+    <div className="container mx-auto px-4">
+      <h1 className="text-4xl font-bold text-blue-600">Styled with Tailwind</h1>
+    </div>
+  );
+}
+```
+
+## Data Fetching Patterns
+
+### Static Generation (Best for blogs, marketing pages)
+
+```tsx
+export default async function StaticPage() {
+  // This data is fetched at build time
+  const posts = await fetch("https://api.example.com/posts");
+
+  return <div>Static content here</div>;
+}
+```
+
+### Server-Side Rendering (Best for personalized content)
+
+```tsx
+export const dynamic = "force-dynamic";
+
+export default async function DynamicPage() {
+  // This data is fetched on every request
+  const user = await getCurrentUser();
+
+  return <div>Welcome, {user.name}!</div>;
+}
+```
+
+## Deployment
+
+Deploy your Next.js app to Vercel in seconds:
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy your app
+vercel
+```
+
+Or push to GitHub and connect to Vercel for automatic deployments.
+
+## Best Practices
+
+### 1. Use Server Components When Possible
+
+Server Components are faster and more SEO-friendly.
+
+### 2. Optimize Images
+
+```tsx
+import Image from "next/image";
+
+export default function OptimizedImage() {
+  return (
+    <Image src="/hero.jpg" alt="Hero image" width={800} height={400} priority />
+  );
+}
+```
+
+### 3. Implement Loading States
+
+```tsx
+export default function loading() {
+  return <div>Loading amazing content...</div>;
+}
+```
+
+### 4. Handle Errors Gracefully
+
+```tsx
+export default function error({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button onClick={reset}>Try again</button>
+    </div>
+  );
+}
+```
+
+## Common Patterns
+
+### Layout with Navigation
+
+```tsx
+// app/layout.tsx
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+        </nav>
+        <main>{children}</main>
+      </body>
+    </html>
+  );
+}
+```
+
+### API Routes
+
+```tsx
+// app/api/hello/route.ts
+export async function GET() {
+  return Response.json({ message: "Hello, World!" });
+}
+
+export async function POST(request: Request) {
+  const data = await request.json();
+  return Response.json({ received: data });
+}
+```
+
+## Conclusion
+
+Next.js 15 provides everything you need to build modern, fast, and scalable React applications. The App Router makes development intuitive, while features like Server Components and automatic optimizations ensure your apps perform exceptionally well.
+
+### Next Steps:
+
+- 📖 Read the [official documentation](https://nextjs.org/docs)
+- 🎯 Build a small project to practice
+- 🚀 Deploy to production
+- 🌟 Explore advanced features like middleware and edge functions
+
+Happy coding! 🎉
+
+---
+
+_This post demonstrates technical tutorial content with code examples and syntax highlighting - perfect for showcasing your blog's capabilities._
