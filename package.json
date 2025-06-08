@@ -26,7 +26,14 @@
     "markdown",
     "typescript",
     "tailwindcss",
-    "portfolio"
+    "portfolio",
+    "blogging",
+    "blogging-system",
+    "blogging-platform",
+    "blogging-software",
+    "blogging-tool",
+    "blogging-service",
+    "blogging-platform"
   ],
   "engines": {
     "node": ">=18.0.0"
@@ -36,7 +43,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "cursor:setup": "echo '🤖 Cursor AI rules are ready! Open project in Cursor to start AI-powered blogging.'",
+    "cursor:help": "echo '📝 Create .mdx file, paste content, ask Cursor AI to format as blog post'",
+    "ai:demo": "echo '✨ Try: 1) Create new .mdx file 2) Paste any blog content 3) Ask Cursor to format it'",
+    "migrate:help": "echo '🔄 Migration: 1) Export from old platform 2) Paste content 3) Let AI format 4) Commit & push'"
   },
   "dependencies": {
     "@highlight-run/next": "^7.6.11",
