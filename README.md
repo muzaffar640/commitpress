@@ -231,18 +231,11 @@ src/
 
 ## 🚀 Deployment
 
-### Deploy to Vercel (Recommended)
+### Deploy to Vercel (Recommended) for FREE
 
 1. Push your code to GitHub
 2. Connect your repo to [Vercel](https://vercel.com)
 3. Deploy with zero configuration
-
-### Deploy to Netlify
-
-1. Push your code to GitHub
-2. Connect your repo to [Netlify](https://netlify.com)
-3. Build command: `npm run build`
-4. Publish directory: `out`
 
 ### Deploy to Any Static Host
 
