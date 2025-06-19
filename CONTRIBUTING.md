@@ -1,3 +1,7 @@
+# Contributing to CommitPress
+
+Welcome to CommitPress! We're excited to have you contribute to the simplest blog system ever built.
+
 ## 🤖 AI-Assisted Development with Cursor
 
 This project includes Cursor rules that help maintain code quality and consistency.
@@ -41,7 +45,7 @@ Easy way to contribute example content:
 6. Submit PR
 ```
 
-**AI-Powered:**
+**AI-Powered with CommitPress:**
 
 ```
 1. Paste raw content
@@ -55,14 +59,14 @@ Easy way to contribute example content:
 **For Blog Posts:**
 
 ```
-"Format this as a technical blog post following our MDX standards"
-"Add proper frontmatter and SEO optimization"
+"Format this as a technical blog post following CommitPress MDX standards"
+"Add proper frontmatter and SEO optimization for CommitPress"
 ```
 
 **For Code:**
 
 ```
-"Follow the project's TypeScript patterns"
+"Follow CommitPress TypeScript patterns"
 "Ensure this component meets accessibility standards"
 ```
 

@@ -15,8 +15,8 @@ A clear and concise description of what you want to happen.
 **Describe alternatives you've considered**
 A clear and concise description of any alternative solutions or features you've considered.
 
-**Does this align with the "database-free" philosophy?**
-Please explain how this feature maintains the simplicity and database-free nature of the project.
+**Does this align with CommitPress philosophy?**
+Please explain how this feature maintains the simplicity and database-free nature of CommitPress.
 
 **Use case example**
 Provide a specific example of how this feature would be used:

@@ -10,9 +10,9 @@ const jetBrainsMono = JetBrains_Mono({
 });
 const isDevelopment = process.env.NODE_ENV === "development";
 export const metadata = {
-  title: "Muzaffar Hossain - Software Engineer",
+  title: "Muzaffar Hossain - Software Engineer | CommitPress",
   description:
-    "Portfolio of Muzaffar Hossain, a Software Engineer specializing in React, NextJS, and more.",
+    "Portfolio of Muzaffar Hossain, a Software Engineer specializing in React, NextJS, and more. Built with CommitPress - the database-free blog system.",
 };
 
 export default function RootLayout({

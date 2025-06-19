@@ -44,11 +44,11 @@ Please check all that apply:
 - [ ] No breaking changes (or they are documented)
 - [ ] TypeScript types are updated (if applicable)
 
-## Database-Free Philosophy
+## CommitPress Philosophy
 
-- [ ] This change maintains the database-free nature of the project
+- [ ] This change maintains the database-free nature of CommitPress
 - [ ] This change doesn't add unnecessary complexity
-- [ ] This change aligns with the "two-commit workflow" principle
+- [ ] This change aligns with the "commit-to-publish" workflow principle
 
 ## Additional context
 

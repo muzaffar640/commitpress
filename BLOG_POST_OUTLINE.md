@@ -42,12 +42,12 @@ Output: Formatted MDX blog post with:
 
 **Competitive Comparison:**
 
-| Platform         | Formatting     | AI Assistance | Setup      | Cost           |
-| ---------------- | -------------- | ------------- | ---------- | -------------- |
-| WordPress        | Manual         | No            | Complex    | $15+/month     |
-| Medium           | Limited        | No            | Simple     | Vendor lock-in |
-| Ghost            | Manual         | No            | Complex    | $9+/month      |
-| **DB-Free Blog** | **AI-Powered** | **Built-in**  | **Simple** | **Free**       |
+| Platform        | Formatting     | AI Assistance | Setup      | Cost           |
+| --------------- | -------------- | ------------- | ---------- | -------------- |
+| WordPress       | Manual         | No            | Complex    | $15+/month     |
+| Medium          | Limited        | No            | Simple     | Vendor lock-in |
+| Ghost           | Manual         | No            | Complex    | $9+/month      |
+| **CommitPress** | **AI-Powered** | **Built-in**  | **Simple** | **Free**       |
 
 **Content Migration:**
 

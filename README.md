@@ -1,8 +1,8 @@
-# 🚀 DB-Free Blog Portfolio
+# 🚀 CommitPress
 
 > **The complete portfolio + blog system.** Beautiful portfolio UI with database-free blogging. Perfect for developers, designers, writers, and any professional. **Now with AI-powered formatting.**
 
-**[🔗 View on GitHub](https://github.com/muzaffar640/db-free-blog-portfolio)** • **[📖 Live Demo](https://db-free-blog-portfolio.vercel.app)** • **[🚀 Deploy Now](https://vercel.com/new/clone?repository-url=https://github.com/muzaffar640/db-free-blog-portfolio)**
+**[🔗 View on GitHub](https://github.com/muzaffar640/commitpress)** • **[📖 Live Demo](https://commitpress.vercel.app)** • **[🚀 Deploy Now](https://vercel.com/new/clone?repository-url=https://github.com/muzaffar640/commitpress)**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
@@ -52,22 +52,22 @@ Traditional solutions are **unnecessarily complex**:
 
 ## 🎯 Why This Approach Wins
 
-| Traditional Setup      | DB-Free Portfolio |
-| ---------------------- | ----------------- |
-| Portfolio + Blog + CMS | Single Solution   |
-| Database + Admin Panel | Just Git          |
-| Complex deployment     | Simple push       |
-| Hosting costs          | Static hosting    |
-| Data backups           | Git history       |
-| Limited customization  | Full control      |
+| Traditional Setup      | CommitPress     |
+| ---------------------- | --------------- |
+| Portfolio + Blog + CMS | Single Solution |
+| Database + Admin Panel | Just Git        |
+| Complex deployment     | Simple push     |
+| Hosting costs          | Static hosting  |
+| Data backups           | Git history     |
+| Limited customization  | Full control    |
 
 ## 🚀 Quick Start
 
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/muzaffar640/db-free-blog-portfolio.git
-cd db-free-blog-portfolio
+git clone https://github.com/muzaffar640/commitpress.git
+cd commitpress
 npm install
 ```
 
@@ -94,11 +94,11 @@ Create a new file in `src/app/content/my-first-post.mdx`:
 
 ```mdx
 ---
-title: "My First Database-Free Post"
+title: "My First CommitPress Post"
 date: "2024-01-15"
 author: "Your Name"
 coverImage: "/images/my-cover.jpg"
-tags: ["blogging", "portfolio", "professional"]
+tags: ["CommitPress", "portfolio", "professional"]
 excerpt: "This is how easy it is to publish without a database!"
 ---
 
@@ -107,7 +107,7 @@ excerpt: "This is how easy it is to publish without a database!"
 This post lives in a `.mdx` file. When I commit and push this file,
 it automatically becomes a live blog post. No database required!
 
-## What I Love About This System:
+## What I Love About CommitPress:
 
 - ✅ Beautiful portfolio design
 - ✅ Integrated blog functionality
@@ -171,7 +171,7 @@ git add . && git commit -m "Add: Migrated post" && git push
 - Manually format content
 - Manage multiple platforms
 
-**AI-Powered DB-Free:**
+**AI-Powered CommitPress:**
 
 - One beautiful system for everything
 - Paste raw content anywhere
@@ -310,17 +310,4 @@ A: Install [Cursor](https://cursor.sh/), open the project, paste any content, an
 A: Yes! Copy content from Medium, LinkedIn, Dev.to, WordPress, or Google Docs. The AI will format it properly.
 
 **Q: How do I handle images?**
-A: Store images in the `public` folder and reference them in your MDX files.
-
-**Q: Can I use React components in my posts?**
-A: Yes! MDX allows you to use React components directly in your Markdown.
-
-**Q: What about SEO?**
-A: Each page automatically generates meta tags, OpenGraph tags, and structured data for optimal SEO.
-
-**Q: Can I use this for client work?**
-A: Absolutely! It's perfect for freelancers and agencies who want to deliver professional portfolio + blog solutions.
-
----
-
-**Built with ❤️ by professionals who believe your online presence should be both beautiful and simple.**
+A: Store images in the `public`
