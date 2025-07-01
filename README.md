@@ -10,6 +10,11 @@
 [![MDX](https://img.shields.io/badge/MDX-3-1C1E24?logo=mdx)](https://mdxjs.com/)
 [![AI-Powered](https://img.shields.io/badge/AI-Powered-brightgreen?logo=cursor)](https://cursor.sh/)
 
+
+
+https://github.com/user-attachments/assets/969c4d33-aaf5-4f12-993a-dbfe72e4fb4b
+
+
 ## 🎯 What You Get
 
 **Complete Professional Portfolio + Blog System:**
