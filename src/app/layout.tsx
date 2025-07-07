@@ -2,6 +2,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { HighlightInit } from "@highlight-run/next/client";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import { PostHogProvider } from "../providers/PostHogProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetBrainsMono = JetBrains_Mono({
@@ -9,6 +10,7 @@ const jetBrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 });
 const isDevelopment = process.env.NODE_ENV === "development";
+const isProduction = process.env.NODE_ENV === "production";
 export const metadata = {
   title: "Muzaffar Hossain - Software Engineer | CommitPress",
   description:
@@ -38,8 +40,14 @@ export default function RootLayout({
         <body
           className={`${inter.variable} ${jetBrainsMono.variable} font-sans bg-gray-900 text-gray-100`}
         >
-          {children}
-          <Analytics />
+          {isProduction ? (
+            <PostHogProvider>
+              {children}
+              <Analytics />
+            </PostHogProvider>
+          ) : (
+            children
+          )}
         </body>
       </html>
     </>
