@@ -2,6 +2,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { PostHogProvider } from "../providers/PostHogProvider";
+import Watermark from "@/components/Watermark";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetBrainsMono = JetBrains_Mono({
@@ -34,6 +35,7 @@ export default function RootLayout({
           ) : (
             children
           )}
+          <Watermark />
         </body>
       </html>
     </>
