@@ -1,13 +1,5 @@
 import Link from "next/link";
-import {
-  Github,
-  Twitter,
-  Linkedin,
-  Coffee,
-  Code,
-  Heart,
-  Mail,
-} from "lucide-react";
+import { Github, Twitter, Linkedin, Coffee, Heart, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -16,12 +8,19 @@ export default function Footer() {
 
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center space-y-8">
-          <div className="flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors">
-            <Code size={20} className="animate-pulse" />
-            <span className="text-sm">crafted with</span>
-            <Heart size={16} className="text-red-500 animate-bounce" />
-            <span className="text-sm">and lots of</span>
-            <Coffee size={20} className="animate-pulse" />
+          <div className="flex items-center gap-2 text-gray-400">
+            <span className="text-sm">Built with</span>
+            <Heart size={16} className="text-red-500" />
+            <span className="text-sm">,</span>
+            <Coffee size={20} />
+            <span className="text-sm">and</span>
+            <Link
+              href="https://github.com/muzaffar640/commitpress"
+              target="_blank"
+              className="text-cyan-400 hover:underline"
+            >
+              CommitPress
+            </Link>
           </div>
 
           <div className="flex space-x-6">
